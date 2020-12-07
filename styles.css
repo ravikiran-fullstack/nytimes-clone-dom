@@ -39,11 +39,32 @@ ul li{
   .pageTitle{
     font-size: 3rem;  
   }
+
+  .dateClass{
+    padding: 0 0 !important;
+    font-size: 13px;
+    border-top: 1px dotted black;
+    border-bottom: 1px dotted black;
+  }
+
+  .dateClass p{
+    margin-bottom: 0;
+  }
 }
 
 @media screen and (max-width: 600px) {
   .pageTitle{
     font-size: 1.5rem;  
+    margin-bottom: 0 !important;
+  }
+
+  .dateClass{
+    padding: 0 0;
+    font-size: 15px;
+  }
+
+  .dateClass p{
+    margin-bottom: 0;
   }
 }
 
@@ -51,4 +72,9 @@ ul li{
 @font-face {
   font-family: myFirstFont;
   src: url('./fonts/Aromabar.ttf');
+}
+
+.dateClass{
+  padding: 48px 0;
+  font-size: 13px;
 }

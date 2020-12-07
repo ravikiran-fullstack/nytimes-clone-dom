@@ -94,14 +94,30 @@ function generateLoadingIndicator(){
       document.body.append(container); 
 }
 
+function formattedDate(){
+  
+  const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+  const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+  const d = new Date();
+  const dayName = days[d.getDay()];
+  const monthName = monthNames[d.getMonth()];
+  const date = d.getDate();
+  const year = d.getFullYear();
+  return `${dayName}, ${monthName}, ${date}, ${year}`
+}
+
 function generatePageHeader(){
     const pageHeaderContainer = createDomElement('div', 'container mt-2');
       const pageHeaderRow = createDomElement('div', 'row');
-        const pageHeaderColumn = createDomElement('div', 'col-12 order-lg-12 text-center');
+        const pageHeaderColumn1 = createDomElement('div', 'col-12 col-md-2 text-center font-weight-bold dateClass')
+          const dateP = createDomElement('p');
+          dateP.innerHTML = formattedDate();
+          pageHeaderColumn1.append(dateP);
+        const pageHeaderColumn2 = createDomElement('div', 'col-12 col-md-8 text-center');
           const pageTitle = createDomElement('p', 'pageTitle')
             pageTitle.innerHTML = 'The New York Times'
-        pageHeaderColumn.append(pageTitle);
-      pageHeaderRow.append(pageHeaderColumn);
+        pageHeaderColumn2.append(pageTitle);
+      pageHeaderRow.append(pageHeaderColumn1, pageHeaderColumn2);
     pageHeaderContainer.append(pageHeaderRow);        
   document.body.append(pageHeaderContainer);  
 }
@@ -118,7 +134,7 @@ function generateNav(){
     const navContainer = createDomElement('div','container');
       const navRow = createDomElement('div', 'row');
         const navColumn = createDomElement('div', 'col-12');
-          const nav = createDomElement('nav', 'navbar navbar-expand-lg navbar-dark bg-dark');
+          const nav = createDomElement('nav', 'navbar navbar-expand-lg navbar-light bg-light');
             const navButton = createDomElement('button', 'navbar-toggler');
               navButton.setAttribute('type' ,'button');
               navButton.setAttribute('data-toggle' ,'collapse');
@@ -154,7 +170,7 @@ function generateNav(){
 }
 
 function createContainer(section){
-  const div = createDomElement('div', 'container mt-5 hidden', section);
+  const div = createDomElement('div', 'container hidden', section);
     const row = createDomElement('div', 'row');
       const column = createDomElement('div', 'col-12', `${section}Column`);
     row.append(column);
