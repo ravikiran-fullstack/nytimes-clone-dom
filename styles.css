@@ -1,1 +1,42 @@
 /* .navbar{color: black !important;} */
+
+.hidden{
+  display: none;
+}
+
+.links{
+  display: flex !important;
+  justify-content: space-between !important;
+}
+
+ul {
+  width: 100%;
+}
+
+ul li{
+  cursor: pointer;
+}
+
+.loading{
+  width: 50% !important;
+  z-index: 2;
+  position: absolute;
+  background: transparent;
+}
+
+.pageTitle{
+  width: 100%;
+  height: auto;
+}
+
+@media screen and (max-width: 1000px) {
+  #navbar-list-2{
+    font-size: 16px;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  #navbar-list-2{
+    font-size: 14px;
+  }
+}
