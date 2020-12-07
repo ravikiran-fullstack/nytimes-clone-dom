@@ -31,29 +31,43 @@ function populateSection(data, columnId){
   console.log(data);
   const section = data.section || '';
   data.results.forEach(article => {
-      const div = document.createElement('div');
-      let url = '';
-      if(article.multimedia){
-        url = article.multimedia[0].url;
-      }
-      div.innerHTML = `<div class="card">
-                      <div class="row">
-                        <div class="col-md-8 col-12">
-                          <div class="card-body">
-                            <h4 class="card-title text-uppercase">${section}</h4>
-                            <h6 class="card-title text-capitalize">${article.title}</h6>
-                            <h6 class="card-title">${formatDate(article.published_date)}</h6>
-                            <p class="card-text">${article.abstract}</p>
-                            <a href="${article.url}" target="_blank" class="text-primary">Continue Reading</a>
-                          </div>
-                        </div>
-                        <div class="col-md-4 col-12">
-                          <img class="img-thumbnail" src="${url}" alt="Card image cap">
-                        </div>
-                      </div>
-                    </div>`
+      const div = createCard(article, section);
       document.getElementById(columnId).append(div);                  
   });
+}
+
+function createCard(article, section){
+  let imageUrl = '';
+  if(article.multimedia){
+    imageUrl = article.multimedia[0].url;
+  }
+  const card = createDomElement('div', 'card mt-3');
+    const cardRow = createDomElement('div', 'row');
+      const column1 = createDomElement('div','col-md-8 col-12');
+        const cardBody = createDomElement('div', 'card-body');
+          const sectionTitle = createDomElement('h4', 'card-title text-uppercase');
+            sectionTitle.innerHTML = `${section}`;
+          const articleTitle = createDomElement('h6', 'card-title text-capitalize');
+            articleTitle.innerHTML = `${article.title}`;
+          const articlePublishedDate = createDomElement('h6', 'card-title');
+            articlePublishedDate.innerHTML = `${formatDate(article.published_date)}`;   
+          const articleAbstract = createDomElement('p', 'card-text');
+            articleAbstract.innerHTML = `${article.abstract}`; 
+          const articleLink = createDomElement('a', 'text-primary');
+            articleLink.innerHTML = `Continue Reading`;
+            articleLink.setAttribute('href', `${article.url}`);
+            articleLink.setAttribute('target', '_blank');
+        cardBody.append(sectionTitle, articleTitle, articlePublishedDate, articleAbstract, articleLink);
+      column1.append(cardBody);       
+
+      const column2 = createDomElement('div','col-md-4 col-12');
+        const image = createDomElement('img', 'img-thumbnail');
+          image.setAttribute('src', `${imageUrl}`);
+          image.setAttribute('alt', 'image not found');
+      column2.append(image);
+    cardRow.append(column1, column2);
+  card.append(cardRow);
+  return card;        
 }
 
 function createDomElement(element, elementClass = '', elementId = ''){
@@ -72,7 +86,54 @@ function createContainer(section){
   return div;    
 }
 
-function generateHtmlBody(){
+function createLink(section){
+  const li = createDomElement('li', 'nav-item');
+    const a = createDomElement('a', 'nav-link text-uppercase', `${section}Btn`);
+    a.text = section;
+  li.append(a);
+  return li;  
+}
+
+function generateNav(){
+    const navContainer = createDomElement('div','container');
+      const navRow = createDomElement('div', 'row');
+        const navColumn = createDomElement('div', 'col-12');
+          const nav = createDomElement('nav', 'navbar navbar-expand-lg navbar-dark bg-dark');
+            const navButton = createDomElement('button', 'navbar-toggler');
+              navButton.setAttribute('type' ,'button');
+              navButton.setAttribute('data-toggle' ,'collapse');
+              navButton.setAttribute('data-target' ,'#navbarNav');
+              navButton.setAttribute('aria-controls' ,'navbarNav');
+              navButton.setAttribute('aria-expanded' ,'false');
+              navButton.setAttribute('aria-label' ,'Toggle navigation');
+            const span = createDomElement('span', 'navbar-toggler-icon');
+            navButton.append(span);
+
+            const navLinksDiv = createDomElement('div', 'collapse navbar-collapse', 'navbarNav');
+              const navLinksUl = createDomElement('ul', 'navbar-nav');
+                const liHome = createLink('home');
+                const liWorld = createLink('world');
+                const liPolitics = createLink('politics');
+                const liMagazine = createLink('magazine');
+                const liTechnology = createLink('technology');
+                const liScience = createLink('science');
+                const liHealth = createLink('health');
+                const liSports = createLink('sports');
+                const liArts = createLink('arts');
+                const liFashion = createLink('fashion');
+                const liFood = createLink('food');
+                const liTravel = createLink('travel');
+              navLinksUl.append(liHome, liWorld, liPolitics, liMagazine, liTechnology, liScience, liHealth, liSports, liArts, liFashion, liFood, liTravel);
+            navLinksDiv.append(navLinksUl);  
+          nav.append(navLinksDiv);
+          nav.append(navButton);
+        navColumn.append(nav);
+      navRow.append(navColumn);
+    navContainer.append(navRow);    
+  document.body.append(navContainer);
+}
+
+function generateSections(){
   const homeContainer = createContainer('home');
   const worldContainer = createContainer('world');
   const politicsContainer = createContainer('politics');
@@ -88,8 +149,12 @@ function generateHtmlBody(){
   document.body.append(homeContainer, worldContainer, politicsContainer, magazineContainer, technologyContainer, scienceContainer, healthContainer, sportsContainer, artsContainer, fashionContainer, foodContainer, travelContainer);
 }
 
-generateHtmlBody();
+function generateHtmlBody(){
+  generateNav();
+  generateSections();
+}
 
+generateHtmlBody();
 
 function formatDate(publishedDate){
   const _date = new Date(publishedDate);
@@ -106,112 +171,21 @@ function delay(timer){
   })
 }
 
-document.getElementById('homeBtn').addEventListener('click', (e)=>{
-  if(previousBtn !==''){
-    document.getElementById(previousBtn).classList.remove('active');
-  }
-  e.target.classList.add('active');
-  fetchData('home');
-  previousBtn = 'homeBtn';
-});
+//#homeBtn /html/body/div[2]/div/div/nav/div/ul/li[1]/a
+//document.querySelector("#homeBtn")
 
-document.getElementById('worldBtn').addEventListener('click', (e)=>{
-  if(previousBtn !==''){
-    document.getElementById(previousBtn).classList.remove('active');
-  }
-  e.target.classList.add('active');
-  fetchData('world');
-  previousBtn = 'worldBtn';
-});
+const links = document.querySelectorAll('a[id*="Btn"]');
 
-document.getElementById('politicsBtn').addEventListener('click', (e)=>{
-  if(previousBtn !==''){
-    document.getElementById(previousBtn).classList.remove('active');
-  }
-  e.target.classList.add('active');
-  fetchData('politics');
-  previousBtn = 'politicsBtn';
-});
-
-document.getElementById('magazineBtn').addEventListener('click', (e)=>{
-  if(previousBtn !==''){
-    document.getElementById(previousBtn).classList.remove('active');
-  }
-  e.target.classList.add('active');
-  fetchData('magazine');
-  previousBtn = 'magazineBtn';
-});
-
-document.getElementById('technologyBtn').addEventListener('click', (e)=>{
-  if(previousBtn !==''){
-    document.getElementById(previousBtn).classList.remove('active');
-  }
-  e.target.classList.add('active');
-  fetchData('technology');
-  previousBtn = 'technologyBtn';
-});
-
-document.getElementById('scienceBtn').addEventListener('click', (e)=>{
-  if(previousBtn !==''){
-    document.getElementById(previousBtn).classList.remove('active');
-  }
-  e.target.classList.add('active');
-  fetchData('science');
-  previousBtn = 'scienceBtn';
-});
-
-document.getElementById('healthBtn').addEventListener('click', (e)=>{
-  if(previousBtn !==''){
-    document.getElementById(previousBtn).classList.remove('active');
-  }
-  e.target.classList.add('active');
-  fetchData('health');
-  previousBtn = 'healthBtn';
-});
-
-document.getElementById('sportsBtn').addEventListener('click', (e)=>{
-  if(previousBtn !==''){
-    document.getElementById(previousBtn).classList.remove('active');
-  }
-  e.target.classList.add('active');
-  fetchData('sports');
-  previousBtn = 'sportsBtn';
-});
-
-document.getElementById('artsBtn').addEventListener('click', (e)=>{
-  if(previousBtn !==''){
-    document.getElementById(previousBtn).classList.remove('active');
-  }
-  e.target.classList.add('active');
-  fetchData('arts');
-  previousBtn = 'artsBtn';
-});
-
-document.getElementById('fashionBtn').addEventListener('click', (e)=>{
-  if(previousBtn !==''){
-    document.getElementById(previousBtn).classList.remove('active');
-  }
-  e.target.classList.add('active');
-  fetchData('fashion');
-  previousBtn = 'fashionBtn';
-});
-
-document.getElementById('foodBtn').addEventListener('click', (e)=>{
-  if(previousBtn !==''){
-    document.getElementById(previousBtn).classList.remove('active');
-  }
-  e.target.classList.add('active');
-  fetchData('food');
-  previousBtn = 'foodBtn';
-});
-
-document.getElementById('travelBtn').addEventListener('click', (e) => {
-  if(previousBtn !==''){
-    document.getElementById(previousBtn).classList.remove('active');
-  }
-  e.target.classList.add('active');
-  fetchData('travel');
-  previousBtn = 'travelBtn';
+links.forEach(link => {
+  link.addEventListener('click', (event)=> {
+    if(previousBtn !==''){
+      document.getElementById(previousBtn).classList.remove('active');
+    }
+    const anchor = event.target;
+    anchor.classList.add('active');
+    fetchData(anchor.text);
+    previousBtn = `${anchor.text}Btn`;
+  });
 });
 
 // document.body.addEventListener('load', fetchDataForHome);
