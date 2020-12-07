@@ -42,9 +42,10 @@ ul li{
 
 }
 
-@media screen and (max-width: 778px) {
+@media screen and (max-width: 992px) {
   .pageTitle{
     font-size: 3.5rem;  
+    display: none;
   }
 
   .dateClass{
@@ -56,6 +57,14 @@ ul li{
 
   .dateClass p{
     margin-bottom: 0;
+  }
+
+  .navBrandClass{
+    display: inline !important;
+    font-family: customCursiveFont;
+    font-weight: bold;
+    font-size: 3rem; 
+    margin-right: 0;
   }
 }
 
@@ -75,6 +84,10 @@ ul li{
   .dateClass p{
     margin-bottom: 0;
   }
+
+  .navBrandClass{
+    font-size: 2rem; 
+  }
 }
 
 
@@ -86,4 +99,9 @@ ul li{
 .dateClass{
   padding: 48px 0;
   font-size: 13px;
+}
+
+
+.navBrandClass{
+ display: none;
 }

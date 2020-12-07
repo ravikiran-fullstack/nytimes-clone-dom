@@ -109,11 +109,11 @@ function formattedDate(){
 function generatePageHeader(){
     const pageHeaderContainer = createDomElement('div', 'container mt-2');
       const pageHeaderRow = createDomElement('div', 'row');
-        const pageHeaderColumn1 = createDomElement('div', 'col-12 col-md-2 text-center font-weight-bold dateClass')
+        const pageHeaderColumn1 = createDomElement('div', 'col-12 col-lg-2 text-center font-weight-bold dateClass')
           const dateP = createDomElement('p');
           dateP.innerHTML = formattedDate();
           pageHeaderColumn1.append(dateP);
-        const pageHeaderColumn2 = createDomElement('div', 'col-12 col-md-8 text-center');
+        const pageHeaderColumn2 = createDomElement('div', 'col-12 col-lg-8 text-center');
           const pageTitle = createDomElement('p', 'pageTitle')
             pageTitle.innerHTML = 'The New York Times'
         pageHeaderColumn2.append(pageTitle);
@@ -144,6 +144,11 @@ function generateNav(){
               navButton.setAttribute('aria-label' ,'Toggle navigation');
             const span = createDomElement('span', 'navbar-toggler-icon');
             navButton.append(span);
+            //<a class="navbar-brand" href="#">Navbar</a>
+
+            const navBrand = createDomElement('a', 'navbar-brand navBrandClass');
+            navBrand.text = 'The New York Times';
+
 
             const navLinksDiv = createDomElement('div', 'collapse navbar-collapse', 'navbarNav');
               const navLinksUl = createDomElement('ul', 'navbar-nav');
@@ -161,8 +166,10 @@ function generateNav(){
                 const liTravel = createLink('travel');
               navLinksUl.append(liHome, liWorld, liPolitics, liMagazine, liTechnology, liScience, liHealth, liSports, liArts, liFashion, liFood, liTravel);
             navLinksDiv.append(navLinksUl);  
-          nav.append(navLinksDiv);
-          nav.append(navButton);
+            nav.append(navButton);
+            nav.append(navBrand);
+            nav.append(navLinksDiv);
+          
         navColumn.append(nav);
       navRow.append(navColumn);
     navContainer.append(navRow);    
