@@ -16,7 +16,6 @@ async function fetchSectionData(category){
 }
 
 async function fetchData(section){
-  console.log('fetchDataForHome');
   if(previousSection !== ''){
     document.getElementById(previousSection).classList.add('hidden');
   }
@@ -32,7 +31,6 @@ async function fetchData(section){
 }
 
 function populateSection(data, columnId){
-  console.log(data);
   const section = data.section || '';
   data.results.forEach(article => {
       const div = createCard(article, section);
@@ -84,7 +82,7 @@ function createDomElement(element, elementClass = '', elementId = ''){
 function generateLoadingIndicator(){
     const div = createDomElement('div', 'hidden', 'loadingIndicator');
       const img = createDomElement('img', 'loading');
-        img.setAttribute('src', './images/loading3.gif');
+        img.setAttribute('src', './images/loading.gif');
         img.setAttribute('alt', 'loading');
     div.append(img);
   document.body.append(div);      
@@ -179,6 +177,9 @@ function generateHtmlBody(){
   generateNav();
   generateLoadingIndicator();
   generateSections();
+  fetchData('home');
+  document.getElementById('homeBtn').classList.add('active');
+  previousBtn = 'homeBtn';
 }
 
 generateHtmlBody();
