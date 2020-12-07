@@ -30,9 +30,16 @@ ul li{
 .pageTitle{
   width: 100%;
   height: auto;
-  font-family: myFirstFont;
+  font-family: customCursiveFont;
   font-size: 5rem;
   font-weight: bold;
+}
+
+@media screen and (max-width: 992px) {
+  .pageTitle{
+    font-size: 4rem;  
+  }
+
 }
 
 @media screen and (max-width: 778px) {
@@ -41,10 +48,10 @@ ul li{
   }
 
   .dateClass{
-    padding: 0 0 !important;
+    padding: 0px 0 !important;
     font-size: 13px;
-    border-top: 1px dotted black;
-    border-bottom: 1px dotted black;
+    border-top: 1px dotted black !important;
+    border-bottom: 1px dotted black !important;
   }
 
   .dateClass p{
@@ -59,8 +66,10 @@ ul li{
   }
 
   .dateClass{
-    padding: 0 0;
+    padding: 0px 0 !important;
     font-size: 15px;
+    border-top: 1px dotted black !important;
+    border-bottom: 1px dotted black !important;
   }
 
   .dateClass p{
@@ -70,7 +79,7 @@ ul li{
 
 
 @font-face {
-  font-family: myFirstFont;
+  font-family: customCursiveFont;
   src: url('./fonts/Aromabar.ttf');
 }
 
