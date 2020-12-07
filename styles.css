@@ -37,7 +37,7 @@ ul li{
 
 @media screen and (max-width: 778px) {
   .pageTitle{
-    font-size: 3rem;  
+    font-size: 3.5rem;  
   }
 
   .dateClass{
@@ -54,7 +54,7 @@ ul li{
 
 @media screen and (max-width: 600px) {
   .pageTitle{
-    font-size: 1.5rem;  
+    font-size: 2.5rem;  
     margin-bottom: 0 !important;
   }
 
