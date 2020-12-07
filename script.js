@@ -5,10 +5,14 @@ let previousBtn = '';
 
 // Fetch data using fetch api based on the category parameter
 async function fetchSectionData(category){
-  const url = `${apiData.URL}${category}.json?api-key=${apiData.API_KEY}`  
-  const response = await fetch(url);
-  const data = await response.json();
-  return data;
+  try{
+    const url = `${apiData.URL}${category}.json?api-key=${apiData.API_KEY}`  
+    const response = await fetch(url);
+    const data = await response.json();
+    return data;
+  } catch(err){
+    console.log(err);
+  }
 }
 
 async function fetchData(section){
@@ -77,13 +81,25 @@ function createDomElement(element, elementClass = '', elementId = ''){
   return newElement;
 }
 
-function createContainer(section){
-  const div = createDomElement('div', 'container mt-5 hidden', section);
-    const row = createDomElement('div', 'row');
-      const column = createDomElement('div', 'col-12', `${section}Column`);
-    row.append(column);
-  div.append(column);
-  return div;    
+function generateLoadingIndicator(){
+    const div = createDomElement('div', 'hidden', 'loadingIndicator');
+      const img = createDomElement('img', 'loading');
+        img.setAttribute('src', './images/loading3.gif');
+        img.setAttribute('alt', 'loading');
+    div.append(img);
+  document.body.append(div);      
+}
+
+function generatePageHeader(){
+    const pageHeaderContainer = createDomElement('div', 'container mt-2');
+      const pageHeaderRow = createDomElement('div', 'row');
+        const pageHeaderColumn = createDomElement('div', 'col-12 order-lg-12 text-center');
+          const pageTitle = createDomElement('p', 'pageTitle')
+            pageTitle.innerHTML = 'The New York Times'
+        pageHeaderColumn.append(pageTitle);
+      pageHeaderRow.append(pageHeaderColumn);
+    pageHeaderContainer.append(pageHeaderRow);        
+  document.body.append(pageHeaderContainer);  
 }
 
 function createLink(section){
@@ -133,6 +149,15 @@ function generateNav(){
   document.body.append(navContainer);
 }
 
+function createContainer(section){
+  const div = createDomElement('div', 'container mt-5 hidden', section);
+    const row = createDomElement('div', 'row');
+      const column = createDomElement('div', 'col-12', `${section}Column`);
+    row.append(column);
+  div.append(column);
+  return div;    
+}
+
 function generateSections(){
   const homeContainer = createContainer('home');
   const worldContainer = createContainer('world');
@@ -150,7 +175,9 @@ function generateSections(){
 }
 
 function generateHtmlBody(){
+  generatePageHeader();
   generateNav();
+  generateLoadingIndicator();
   generateSections();
 }
 

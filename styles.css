@@ -11,6 +11,7 @@
 
 ul {
   width: 100%;
+  justify-content: space-between;
 }
 
 ul li{
@@ -27,6 +28,9 @@ ul li{
 .pageTitle{
   width: 100%;
   height: auto;
+  font-family: myFirstFont;
+  font-size: 5rem;
+  font-weight: bold;
 }
 
 @media screen and (max-width: 1000px) {
@@ -39,4 +43,9 @@ ul li{
   #navbar-list-2{
     font-size: 14px;
   }
+}
+
+@font-face {
+  font-family: myFirstFont;
+  src: url('./fonts/Aromabar.ttf');
 }
