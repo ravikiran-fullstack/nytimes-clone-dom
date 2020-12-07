@@ -22,9 +22,9 @@ async function fetchData(section){
 
   document.getElementById(section).classList.remove('hidden');
   //fetch data using fetch api
-  //document.getElementById('loadingIndicator').classList.remove('hidden');
+  document.getElementById('loadingIndicator').classList.remove('hidden');
   const data = await fetchSectionData(section);
-  //document.getElementById('loadingIndicator').classList.add('hidden');
+  document.getElementById('loadingIndicator').classList.add('hidden');
   // populate container home with this data
   populateSection(data, section+'Column');
   previousSection = section;
@@ -80,12 +80,18 @@ function createDomElement(element, elementClass = '', elementId = ''){
 }
 
 function generateLoadingIndicator(){
-    const div = createDomElement('div', 'hidden', 'loadingIndicator');
-      const img = createDomElement('img', 'loading');
-        img.setAttribute('src', './images/loading.gif');
-        img.setAttribute('alt', 'loading');
-    div.append(img);
-  document.body.append(div);      
+    const container = createDomElement('div', 'container mt-2');
+      const row = createDomElement('div', 'row');
+        const column = createDomElement('div', 'col-12 order-lg-12 text-center');
+        const div = createDomElement('div', 'loading', 'loadingIndicator');
+          const img = createDomElement('img', 'img-fluid');
+            img.setAttribute('src', './images/loading4.gif');
+            img.setAttribute('alt', 'loading');
+            div.append(img);
+          column.append(div);  
+          row.append(column);
+        container.append(row);        
+      document.body.append(container); 
 }
 
 function generatePageHeader(){

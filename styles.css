@@ -19,10 +19,12 @@ ul li{
 }
 
 .loading{
-  width: 50% !important;
-  z-index: 2;
-  position: absolute;
-  background: transparent;
+  /* width: 50% !important; */
+  /* z-index: 2; */
+  /* position: absolute; */
+  /* background: transparent; */
+  /* margin-left: 30%; */
+  /* height: 50vh; */
 }
 
 .pageTitle{
