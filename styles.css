@@ -51,8 +51,8 @@ ul li{
   .dateClass{
     padding: 0px 0 !important;
     font-size: 13px;
-    border-top: 1px dotted black !important;
-    border-bottom: 1px dotted black !important;
+    border-top: 1px dotted #959595 !important;
+    border-bottom: 1px dotted#959595 !important;
   }
 
   .dateClass p{
@@ -77,8 +77,8 @@ ul li{
   .dateClass{
     padding: 0px 0 !important;
     font-size: 15px;
-    border-top: 1px dotted black !important;
-    border-bottom: 1px dotted black !important;
+    border-top: 1px dotted #959595 !important;
+    border-bottom: 1px dotted#959595 !important;
   }
 
   .dateClass p{
@@ -89,7 +89,6 @@ ul li{
     font-size: 2rem; 
   }
 }
-
 
 @font-face {
   font-family: customCursiveFont;
